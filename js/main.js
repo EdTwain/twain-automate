@@ -52,7 +52,7 @@
         items: 1,
         autoplay: true,
         smartSpeed: 1000,
-        dots: true,
+        dots: false,
         loop: true,
         nav: true,
         navText : [
