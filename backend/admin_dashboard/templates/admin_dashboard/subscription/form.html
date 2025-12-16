@@ -1,0 +1,74 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ action }}</h2>
+
+    <form method="post" enctype="multipart/form-data" class="mt-3">
+        {% csrf_token %}
+        <div class="card shadow-sm">
+            <div class="card-body">
+                {{ form.non_field_errors }}
+
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Slug</label>
+                    {{ form.slug }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Plan Type</label>
+                    {{ form.plan_type }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Price (KES)</label>
+                    {{ form.price_kes }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    {{ form.description }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Features (comma‑separated)</label>
+                    {{ form.features }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Badge</label>
+                    {{ form.badge }}
+                </div>
+
+                <div class="form-check mb-3">
+                    {{ form.highlighted }}
+                    <label class="form-check-label">Highlight this plan</label>
+                </div>
+
+                <div class="form-check mb-3">
+                    {{ form.is_active }}
+                    <label class="form-check-label">Active</label>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Sort Order</label>
+                    {{ form.sort_order }}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-save"></i> Save
+            </button>
+            <a href="{% url 'dashboard_subscription' %}" class="btn btn-secondary">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

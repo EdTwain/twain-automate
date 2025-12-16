@@ -1,0 +1,169 @@
+/* ===========================
+   General Layout
+   =========================== */
+body {
+  background-color: #f8f9fa; /* Light background for dashboard */
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+/* Main content area styling */
+main {
+  flex-grow: 1;         
+  min-width: 0;          
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  overflow-x: auto;      
+}
+
+
+/* ===========================
+   Sidebar Styling
+   =========================== */
+/* Sidebar should stay fixed at 260px */
+.sidebar {
+  background-color: #1e1e2f;
+  min-height: 100vh;
+  width: 260px;
+  flex-shrink: 0;       
+  overflow-x: hidden;    
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.sidebar a {
+  color: #ccc;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background-color: #0052cc;
+  color: #fff;
+}
+
+.sidebar-nav {
+  flex-grow: 0;
+}
+
+.sidebar-actions {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+/* ===========================
+   Pricing Card Styling
+   =========================== */
+.card {
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #e0e0e0;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.card-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Highlighted plan (e.g. Pro) */
+.card.highlighted {
+  border: 2px solid #0052cc;
+  box-shadow: 0 0 15px rgba(0,82,204,0.3);
+  position: relative;
+}
+.card.highlighted::before {
+  content: "★ Most Popular";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0052cc;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ===========================
+   Feature List Styling
+   =========================== */
+.card ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.card ul li {
+  padding: 4px 0;
+  font-size: 0.9rem;
+}
+.card ul li::before {
+  content: "✓";
+  color: #28a745;
+  margin-right: 6px;
+  font-weight: bold;
+}
+
+/* ===========================
+   Badge Styling
+   =========================== */
+.badge {
+  border-radius: 20px;
+  font-size: 0.75rem;
+  padding: 5px 10px;
+}
+
+/* ===========================
+   Modal Styling
+   =========================== */
+.modal-content {
+  border-radius: 10px;
+}
+.modal-header {
+  background-color: #0052cc;
+  color: #fff;
+}
+.btn-primary {
+  background-color: #0052cc;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #003d99;
+}
+
+/* ===========================
+   Video Embedding Styling
+   =========================== */
+.media-frame {
+  max-width: 720px;   /* tighter cap for better balance */
+  margin: 20px auto;  /* center and add spacing */
+}
+
+.media-frame iframe {
+  width: 100%;
+  height: 405px;      /* 16:9 ratio for 720px width */
+  border-radius: 8px;
+  border: none;
+}
+
+.media-frame video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

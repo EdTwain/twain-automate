@@ -1,0 +1,28 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% block title %}Tools We Use{% endblock %}
+
+{% block content %}
+<h2>Tools We Use</h2>
+<p class="text-muted">Explore the technologies powering Twain Automate</p>
+
+<div class="row">
+  {% for tool in tools %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          {% if tool.icon %}
+            <i class="{{ tool.icon }} fa-2x mb-3"></i>
+          {% endif %}
+          <h5 class="card-title">{{ tool.name }}</h5>
+          <p class="card-text">{{ tool.description }}</p>
+          {% if tool.website_url %}
+            <a href="{{ tool.website_url }}" target="_blank" class="btn btn-outline-primary btn-sm">Learn More</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-muted">No tools added yet. Add them in Django Admin.</p>
+  {% endfor %}
+</div>
+{% endblock %}

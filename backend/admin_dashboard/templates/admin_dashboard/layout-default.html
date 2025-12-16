@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twain Admin Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'admin_dashboard/assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'admin_dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'admin_dashboard/assets/vendors/bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'admin_dashboard/assets/css/app.css' %}">
+    <link rel="shortcut icon" href="{% static 'admin_dashboard/assets/images/favicon.svg' %}" type="image/x-icon">
+</head>
+
+<body>
+    <div id="app" class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 px-0">
+                {% include 'admin_dashboard/partials/sidebar.html' %}
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10">
+                <main class="py-4 px-3">
+                    {% block content %}{% endblock %}
+                </main>
+
+                <!-- Footer -->
+                <footer class="mt-5">
+                    <div class="footer clearfix mb-0 text-muted">
+                        <div class="float-start">
+                            <p>© Twain Technologies. All rights reserved.</p>
+                        </div>
+                        <div class="float-end">
+                            <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'admin_dashboard/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'admin_dashboard/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'admin_dashboard/assets/js/main.js' %}"></script>
+</body>
+</html>

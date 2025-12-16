@@ -1,0 +1,170 @@
+{% extends "admin_dashboard/base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Content Manager</h2>
+
+  <!-- Services -->
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span>Services</span>
+      <a href="{% url 'admin_content' %}" class="btn btn-sm btn-primary">Manage</a>
+    </div>
+    <div class="card-body">
+      <table class="table table-sm">
+        <thead>
+          <tr><th>Title</th><th>Description</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+          {% for service in services|slice:":3" %}
+          <tr>
+            <td>{{ service.title }}</td>
+            <td>{{ service.description|truncatewords:8 }}</td>
+            <td>
+              <a href="{% url 'edit_service' service.id %}" class="btn btn-sm btn-warning">Edit</a>
+              <a href="{% url 'delete_service' service.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="3" class="text-center">No services yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span>Testimonials</span>
+      <a href="{% url 'admin_content' %}" class="btn btn-sm btn-primary">Manage</a>
+    </div>
+    <div class="card-body">
+      <table class="table table-sm">
+        <thead>
+          <tr><th>Client</th><th>Feedback</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+          {% for testimonial in testimonials|slice:":3" %}
+          <tr>
+            <td>{{ testimonial.client_name }}</td>
+            <td>{{ testimonial.feedback|truncatewords:10 }}</td>
+            <td>
+              <a href="{% url 'edit_testimonial' testimonial.id %}" class="btn btn-sm btn-warning">Edit</a>
+              <a href="{% url 'delete_testimonial' testimonial.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="3" class="text-center">No testimonials yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Case Studies -->
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span>Case Studies</span>
+      <a href="{% url 'admin_content' %}" class="btn btn-sm btn-primary">Manage</a>
+    </div>
+    <div class="card-body">
+      <table class="table table-sm">
+        <thead>
+          <tr><th>Project</th><th>Outcome</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+          {% for case in case_studies|slice:":3" %}
+          <tr>
+            <td>{{ case.project_name }}</td>
+            <td>{{ case.outcome|truncatewords:10 }}</td>
+            <td>
+              <a href="{% url 'edit_case' case.id %}" class="btn btn-sm btn-warning">Edit</a>
+              <a href="{% url 'delete_case' case.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="3" class="text-center">No case studies yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Knowledge Centre -->
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span>Knowledge Centre</span>
+      <a href="{% url 'admin_knowledge_list' %}" class="btn btn-sm btn-primary">Manage</a>
+    </div>
+    <div class="card-body">
+      <table class="table table-sm">
+        <thead>
+          <tr><th>Title</th><th>Category</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          {% for article in articles|slice:":3" %}
+          <tr>
+            <td>{{ article.title }}</td>
+            <<td>
+                {% if article.category %}
+                    {{ article.category.name }}
+                {% else %}
+                    Uncategorized
+                {% endif %}
+            </td>
+            
+            <td>
+              {% if article.is_published %}
+                <span class="badge bg-success">Published</span>
+              {% else %}
+                <span class="badge bg-secondary">Draft</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="3" class="text-center">No articles yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tools -->
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <span>Tools</span>
+      <a href="{% url 'admin_tool_list' %}" class="btn btn-sm btn-primary">Manage</a>
+    </div>
+    <div class="card-body">
+      <table class="table table-sm">
+        <thead>
+          <tr><th>Name</th><th>Website</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          {% for tool in tools|slice:":3" %}
+          <tr>
+            <td>{{ tool.name }}</td>
+            <td>
+              {% if tool.website_url %}
+                <a href="{{ tool.website_url }}" target="_blank">Visit</a>
+              {% else %}
+                —
+              {% endif %}
+            </td>
+            <td>
+              {% if tool.is_active %}
+                <span class="badge bg-success">Active</span>
+              {% else %}
+                <span class="badge bg-secondary">Inactive</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="3" class="text-center">No tools yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

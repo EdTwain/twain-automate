@@ -1,0 +1,53 @@
+{% extends "admin_dashboard/base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">
+    {% if form.instance.pk %}Edit Tool{% else %}Add Tool{% endif %}
+  </h2>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      {{ form.name.label_tag }}
+      {{ form.name }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.slug.label_tag }}
+      {{ form.slug }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.description.label_tag }}
+      {{ form.description }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.icon.label_tag }}
+      {{ form.icon }}
+      <small class="form-text text-muted">
+        Optional icon class (e.g. <code>fa fa-cog</code> or <code>bi bi-tools</code>)
+      </small>
+    </div>
+
+    <div class="mb-3">
+      {{ form.website_url.label_tag }}
+      {{ form.website_url }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.sort_order.label_tag }}
+      {{ form.sort_order }}
+    </div>
+
+    <div class="form-check mb-3">
+      {{ form.is_active }}
+      {{ form.is_active.label_tag }}
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'admin_tool_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

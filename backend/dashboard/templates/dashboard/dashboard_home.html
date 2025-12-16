@@ -1,0 +1,62 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>Dashboard Overview</h2>
+<p class="text-muted">Welcome to Twain Automate.</p>
+
+<!-- Messages block -->
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+{% endif %}
+
+<!-- Overview cards -->
+<div class="row g-4">
+  <div class="col-md-3">
+    <div class="p-4 bg-white rounded shadow-sm h-100">
+      <h6>Company</h6>
+      <p class="mb-0">{{ overview.company }}</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="p-4 bg-white rounded shadow-sm h-100">
+      <h6>Plan</h6>
+      <p class="mb-0">
+        {% if request.user.subscription %}
+          {{ request.user.subscription.plan.name }} ({{ request.user.subscription.status }})
+        {% else %}
+          No active subscription
+        {% endif %}
+      </p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="p-4 bg-white rounded shadow-sm h-100">
+      <h6>Bots Active</h6>
+      <p class="mb-0">{{ overview.bots_active }}</p>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="p-4 bg-white rounded shadow-sm h-100">
+      <h6>Integrations</h6>
+      <p class="mb-0">{{ overview.integrations }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4 p-4 bg-white rounded shadow-sm">
+  <h6>Last Activity</h6>
+  <p class="mb-0">{{ overview.last_activity }}</p>
+</div>
+
+<!-- Actions -->
+<div class="mt-4">
+  <a href="{% url 'dashboard_subscription' %}" class="btn btn-primary btn-sm">Manage Subscription</a>
+  <a href="{% url 'dashboard_support' %}" class="btn btn-secondary btn-sm">Request Support</a>
+</div>
+{% endblock %}

@@ -1,0 +1,169 @@
+{% extends 'dashboard/dashboard_base.html' %}
+{% block title %}Subscription{% endblock %}
+
+{% block content %}
+<h2>Subscription Status</h2>
+
+<div class="p-4 bg-white rounded shadow-sm mb-3">
+  {% if user_sub %}
+    <p><strong>Status:</strong> {{ user_sub.get_status_display }}</p>
+    {% if user_sub.plan %}
+      <p><strong>Current Plan:</strong> {{ user_sub.plan.name }}</p>
+    {% else %}
+      <p><strong>Current Plan:</strong> None</p>
+    {% endif %}
+  {% else %}
+    <p><strong>Status:</strong> Inactive</p>
+    <p><strong>Current Plan:</strong> None</p>
+  {% endif %}
+  <p class="text-muted">Manage your plan below.</p>
+</div>
+
+{% if payment_error %}
+  <div class="alert alert-danger">{{ payment_error }}</div>
+{% endif %}
+
+<!-- Monthly Subscription Plans -->
+<h4 class="mt-2 mb-3">Monthly Subscription Plans</h4>
+<div class="row g-4">
+  {% for plan in monthly_plans %}
+    <div class="col-md-4">
+      <div class="card bg-dark text-white shadow-sm h-100 position-relative {% if plan.highlighted %}highlighted{% endif %}">
+        {% if plan.badge %}
+          <div class="position-absolute top-0 start-50 translate-middle-x bg-warning text-dark px-2 py-1 rounded">
+            {{ plan.badge }}
+          </div>
+        {% endif %}
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="card-title">{{ plan.name }}</h5>
+            <p class="card-text">KES {{ plan.price_kes }}/month</p>
+            <p class="text-muted small">{{ plan.description }}</p>
+            {% if plan.feature_list %}
+              <ul class="mt-2 mb-3">
+                {% for feature in plan.feature_list %}
+                  <li>{{ feature }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <!-- Trigger modal -->
+          <button class="btn btn-light w-100 mt-2" data-bs-toggle="modal" data-bs-target="#planModal-{{ plan.id }}">
+            Subscribe
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="planModal-{{ plan.id }}" tabindex="-1" aria-labelledby="planLabel-{{ plan.id }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="planLabel-{{ plan.id }}">Checkout: {{ plan.name }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p>You are subscribing to <strong>{{ plan.name }}</strong> at <strong>KES {{ plan.price_kes }}/month</strong>.</p>
+            <h6>Select Payment Method:</h6>
+            <ul class="list-unstyled">
+              <!--Lipa na M-Pesa -->
+              <li>
+                <form action="{% url 'pay' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="amount" value="{{ plan.price_kes }}">
+                  <div class="mb-3">
+                    <label for="phone-{{ plan.id }}" class="form-label">Phone Number (2547XXXXXXXX)</label>
+                    <input type="text" name="phone" id="phone-{{ plan.id }}" class="form-control" required>
+                  </div>
+                  <button type="submit" class="btn btn-outline-primary w-100 mb-2">Pay with M-Pesa</button>
+                </form>
+              </li>
+              <!-- Bank Transfer -->
+              <li><button class="btn btn-outline-success w-100 mb-2" disabled>Bank Transfer (Coming Soon)</button></li>
+              <!-- USD Payment -->
+              <li><button class="btn btn-outline-secondary w-100 mb-2" disabled>USD Payment (Coming Soon)</button></li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- One-Time Setup Packages -->
+<h4 class="mt-5 mb-3">One-Time Setup Packages</h4>
+<div class="row g-4">
+  {% for plan in one_time_plans %}
+    <div class="col-md-4">
+      <div class="card bg-dark text-white shadow-sm h-100 position-relative {% if plan.highlighted %}highlighted{% endif %}">
+        {% if plan.badge %}
+          <div class="position-absolute top-0 start-50 translate-middle-x bg-warning text-dark px-2 py-1 rounded">
+            {{ plan.badge }}
+          </div>
+        {% endif %}
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="card-title">{{ plan.name }}</h5>
+            <p class="card-text">KES {{ plan.price_kes }}</p>
+            <p class="text-muted small">{{ plan.description }}</p>
+            {% if plan.feature_list %}
+              <ul class="mt-2 mb-3">
+                {% for feature in plan.feature_list %}
+                  <li>{{ feature }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <!-- Trigger modal -->
+          <button class="btn btn-success w-100 mt-3" data-bs-toggle="modal" data-bs-target="#planModal-{{ plan.id }}">
+            Get Started
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+     <!-- Modal -->
+    <div class="modal fade" id="planModal-{{ plan.id }}" tabindex="-1" aria-labelledby="planLabel-{{ plan.id }}" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="planLabel-{{ plan.id }}">Checkout: {{ plan.name }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p>You are subscribing to <strong>{{ plan.name }}</strong> at <strong>KES {{ plan.price_kes }}/month</strong>.</p>
+            <h6>Select Payment Method:</h6>
+            <ul class="list-unstyled">
+              <!-- Lipa na M-Pesa -->
+              <li>
+                <form action="{% url 'pay' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="amount" value="{{ plan.price_kes }}">
+                  <div class="mb-3">
+                    <label for="phone-{{ plan.id }}" class="form-label">Phone Number (2547XXXXXXXX)</label>
+                    <input type="text" name="phone" id="phone-{{ plan.id }}" class="form-control" required>
+                  </div>
+                  <button type="submit" class="btn btn-outline-primary w-100 mb-2">Pay with M-Pesa</button>
+                </form>
+              </li>
+              <!-- Bank Transfer -->
+              <li><button class="btn btn-outline-success w-100 mb-2" disabled>Bank Transfer (Coming Soon)</button></li>
+              <!-- USD Payment -->
+              <li><button class="btn btn-outline-secondary w-100 mb-2" disabled>USD Payment (Coming Soon)</button></li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

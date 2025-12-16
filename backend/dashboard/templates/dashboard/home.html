@@ -1,0 +1,46 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% block title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+
+<div class="alert alert-info">
+    📢 Announcement: New automation tools are coming soon — stay tuned!
+</div>
+
+<h2>Welcome, {{ overview.company_name }}</h2>
+<p class="text-muted">Here’s a quick snapshot of your account.</p>
+
+<div class="row g-4">
+    <div class="col-md-3">
+        <div class="p-4 bg-white rounded shadow-sm text-center">
+            <h5>Plan</h5>
+            <p>{{ overview.plan }}</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="p-4 bg-white rounded shadow-sm text-center">
+            <h5>Bots Active</h5>
+            <p>{{ overview.bots_active }}</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="p-4 bg-white rounded shadow-sm text-center">
+            <h5>Integrations</h5>
+            <p>{{ overview.integrations }}</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="p-4 bg-white rounded shadow-sm text-center">
+            <h5>Last Activity</h5>
+            <p>{{ overview.last_activity }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <h4>Quick Links</h4>
+    <a href="{% url 'dashboard_subscription' %}" class="btn btn-primary btn-sm">Manage Subscription</a>
+    <a href="{% url 'dashboard_support' %}" class="btn btn-secondary btn-sm">Request Support</a>
+</div>
+{% endblock %}

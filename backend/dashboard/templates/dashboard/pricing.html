@@ -1,0 +1,36 @@
+{% extends 'dashboard/dashboard_base.html' %}
+
+{% block title %}Pricing Packages{% endblock %}
+
+{% block content %}
+<h2>Pricing Packages</h2>
+<p class="text-muted">Choose the plan that fits your business needs.</p>
+
+<div class="row g-4">
+  {% for package in packages %}
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 text-center position-relative {% if package.highlighted %}highlighted{% endif %}">
+        {% if package.badge %}
+          <div class="position-absolute top-0 start-50 translate-middle-x bg-warning text-dark px-2 py-1 rounded">
+            {{ package.badge }}
+          </div>
+        {% endif %}
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h4 class="card-title">{{ package.name }}</h4>
+            <p class="card-text"><strong>KES {{ package.price }}</strong></p>
+            {% if package.features %}
+              <ul class="list-unstyled mt-3 mb-3 text-start">
+                {% for feature in package.features %}
+                  <li>{{ feature }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+          <button class="btn btn-primary w-100 mt-3">Select Plan</button>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

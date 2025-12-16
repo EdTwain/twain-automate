@@ -1,0 +1,98 @@
+{% extends 'admin_dashboard/base.html' %}
+{% block title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+<div class="page-heading mb-4">
+  <h3>Dashboard Overview</h3>
+  <p class="text-muted">Quick summary of your platform activity.</p>
+</div>
+
+<!-- Summary Cards -->
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6>Total Messages</h6>
+        <h3>{{ message_count }}</h3>
+        <span class="badge bg-warning">Unread: {{ unread_count }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6>Active Services</h6>
+        <h3>{{ service_count }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6>Case Studies</h6>
+        <h3>{{ case_count }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6>Clients</h6>
+        <h3>{{ client_count }}</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="mb-5">
+  <a href="{% url 'admin_messages' %}" class="btn btn-primary me-2">View Messages</a>
+  <a href="{% url 'admin_content' %}" class="btn btn-outline-secondary me-2">Manage Content</a>
+  <a href="{% url 'admin_projects' %}" class="btn btn-outline-success">Add Project</a>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+  <!-- Recent Projects -->
+  <div class="col-md-6">
+    <h5>Recent Projects</h5>
+    <ul class="list-group">
+      {% for project in recent_projects %}
+        <li class="list-group-item">
+          <strong>{{ project.name }}</strong> — {{ project.created_at|date:"M d, Y" }}
+          <br><small class="text-muted">Status: {{ project.status }}</small>
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">No recent projects</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Recent Messages -->
+  <div class="col-md-6">
+    <h5>Recent Messages</h5>
+    <ul class="list-group">
+      {% for msg in recent_messages %}
+        <li class="list-group-item">
+          {% if msg.business_name %}
+            <strong>{{ msg.business_name }}</strong>
+          {% else %}
+            <strong>{{ msg.name }}</strong>
+          {% endif %}
+          — {{ msg.created_at|date:"M d, Y H:i" }}
+          <br>
+          <small class="text-muted">
+            {% if msg.problem %}
+              Problem: {{ msg.problem }} (Urgency: {{ msg.urgency }})
+            {% else %}
+              {{ msg.description|truncatewords:12 }}
+            {% endif %}
+          </small>
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">No recent messages</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

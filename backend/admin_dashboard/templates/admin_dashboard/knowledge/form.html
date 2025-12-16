@@ -1,0 +1,80 @@
+{% extends "admin_dashboard/base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">
+    {% if form.instance.pk %}Edit Article{% else %}Add Article{% endif %}
+  </h2>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="mb-3">
+      {{ form.title.label_tag }}
+      {{ form.title }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.slug.label_tag }}
+      {{ form.slug }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.category.label_tag }}
+      {{ form.category }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.summary.label_tag }}
+      {{ form.summary }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.content.label_tag }}
+      {{ form.content }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.read_time_minutes.label_tag }}
+      {{ form.read_time_minutes }}
+    </div>
+
+    <div class="form-check mb-3">
+      {{ form.featured }}
+      {{ form.featured.label_tag }}
+    </div>
+
+    <div class="form-check mb-3">
+      {{ form.is_published }}
+      {{ form.is_published.label_tag }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.feature_image.label_tag }}
+      {{ form.feature_image }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.video_url.label_tag }}
+      {{ form.video_url }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.video_file.label_tag }}
+      {{ form.video_file }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.sort_order.label_tag }}
+      {{ form.sort_order }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.author.label_tag }}
+      {{ form.author }}
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'admin_knowledge_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

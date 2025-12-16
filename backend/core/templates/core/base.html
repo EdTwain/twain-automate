@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Twain Technologies{% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet (Updated to 6.5.0) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Main Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+
+<body>
+  {% include 'core/includes/navbar.html' %}
+
+  <div class="page-backdrop">
+    {% block content %}{% endblock %}
+    {% include 'core/includes/footer.html' %}
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 420px;">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header">
+          <h5 class="modal-title">Sign in to your account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" title="Close"></button>
+        </div>
+        <div class="modal-body">
+          {% if messages %}
+            {% for message in messages %}
+              {% if message.tags == "error" %}
+                <div class="alert alert-danger mb-3 alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+          <form method="POST" action="{% url 'login' %}" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="login_username" class="form-label">Username</label>
+              <input type="text" name="username" id="login_username" class="form-control" placeholder="Enter your username" required>
+            </div>
+            <div class="mb-3">
+              <label for="login_password" class="form-label">Password</label>
+              <input type="password" name="password" id="login_password" class="form-control" placeholder="Enter password" required>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <a href="{% url 'password_reset' %}" class="small text-decoration-none">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign In</button>
+          </form>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <span class="small">Don’t have an account?
+            <a href="#" class="text-decoration-none" data-bs-target="#signupModal" data-bs-toggle="modal" data-bs-dismiss="modal">Sign Up</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div class="modal fade" id="signupModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 460px;">
+      <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-header">
+          <h5 class="modal-title">Create your account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" title="Close"></button>
+        </div>
+        <div class="modal-body">
+          {% if messages %}
+            {% for message in messages %}
+              {% if message.tags == "error" %}
+                <div class="alert alert-danger mb-3 alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+
+          <form method="POST" action="{% url 'signup' %}" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="signup_username" class="form-label">Username</label>
+              <input type="text" name="username" id="signup_username" class="form-control" placeholder="Choose a username" required>
+            </div>
+            <div class="mb-3">
+              <label for="signup_email" class="form-label">Email address</label>
+              <input type="email" name="email" id="signup_email" class="form-control" placeholder="you@example.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="signup_password" class="form-label">Password</label>
+              <input type="password" name="password" id="signup_password" class="form-control" placeholder="Enter password" required>
+            </div>
+            <div class="mb-3">
+              <label for="signup_confirm_password" class="form-label">Confirm password</label>
+              <input type="password" name="confirm_password" id="signup_confirm_password" class="form-control" placeholder="Re-enter password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+          </form>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <span class="small">Already have an account?
+            <a href="#" class="text-decoration-none" data-bs-target="#loginModal" data-bs-toggle="modal" data-bs-dismiss="modal">Login</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+  <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+  {% if messages %}
+  <script>
+    {% for message in messages %}
+      {% if message.tags == "error" %}
+        // Auto-open login modal only for login errors
+        const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        loginModal.show();
+      {% endif %}
+    {% endfor %}
+  </script>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,79 @@
+<div id="sidebar" class="bg-light border-end">
+  <div class="d-flex flex-column h-100">
+
+    <!-- Logo / Header -->
+    <div class="sidebar-header d-flex justify-content-between align-items-center px-3 py-2 border-bottom">
+      <div class="logo">
+        <a href="{% url 'admin_dashboard_home' %}">
+          {# Optional logo image #}
+          {# <img src="{% static 'admin_dashboard/images/logo.png' %}" alt="Twain Tech Logo" class="img-fluid" style="max-height:40px;"> #}
+        </a>
+      </div>
+      <div class="toggler">
+        <a href="#" class="sidebar-hide d-xl-none d-block">
+          <i class="bi bi-x"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Menu -->
+    <nav class="flex-grow-1">
+      <ul class="menu list-unstyled m-0">
+
+        <!-- Main -->
+        <li class="sidebar-title px-3 mt-3">Main</li>
+        <li class="sidebar-item {% if request.resolver_match.url_name == 'admin_dashboard_home' %}active{% endif %}">
+          <a href="{% url 'admin_dashboard_home' %}" class="sidebar-link px-3">
+            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+          </a>
+        </li>
+        <li class="sidebar-item {% if request.resolver_match.url_name == 'admin_messages' %}active{% endif %}">
+          <a href="{% url 'admin_messages' %}" class="sidebar-link px-3">
+            <i class="bi bi-envelope me-2"></i> Messages
+          </a>
+        </li>
+        <li class="sidebar-item {% if request.resolver_match.url_name == 'admin_analytics' %}active{% endif %}">
+          <a href="{% url 'admin_analytics' %}" class="sidebar-link px-3">
+            <i class="bi bi-bar-chart me-2"></i> Analytics
+          </a>
+        </li>
+        <li class="sidebar-item {% if request.resolver_match.url_name == 'admin_clients' %}active{% endif %}">
+          <a href="{% url 'admin_clients' %}" class="sidebar-link px-3">
+            <i class="bi bi-people me-2"></i> Clients
+          </a>
+        </li>
+
+        <!-- Content -->
+        <li class="sidebar-title px-3 mt-3">Content</li>
+        <li class="sidebar-item {% if request.resolver_match.url_name == 'admin_content' %}active{% endif %}">
+          <a href="{% url 'admin_content' %}" class="sidebar-link px-3">
+            <i class="bi bi-folder me-2"></i> Content Manager
+          </a>
+        </li>
+        <li class="sidebar-item {% if request.resolver_match.url_name == 'admin_projects' %}active{% endif %}">
+          <a href="{% url 'admin_projects' %}" class="sidebar-link px-3">
+            <i class="bi bi-kanban me-2"></i> Projects
+          </a>
+        </li>
+
+        <!-- System -->
+        <li class="sidebar-title px-3 mt-3">System</li>
+        <li class="sidebar-item {% if request.resolver_match.url_name == 'admin_notifications' %}active{% endif %}">
+          <a href="{% url 'admin_notifications' %}" class="sidebar-link px-3">
+            <i class="bi bi-bell me-2"></i> Notifications
+          </a>
+        </li>
+        <li class="sidebar-item {% if request.resolver_match.url_name == 'admin_settings' %}active{% endif %}">
+          <a href="{% url 'admin_settings' %}" class="sidebar-link px-3">
+            <i class="bi bi-gear me-2"></i> Settings
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer px-3 py-2 border-top mt-auto">
+      <small class="text-muted">© Twain Technologies</small>
+    </div>
+  </div>
+</div>
